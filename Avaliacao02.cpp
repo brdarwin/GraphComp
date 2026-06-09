@@ -8,7 +8,7 @@
 
 GLfloat fAspect;
 GLdouble rotX = 0, rotY = 0, rotHead = 0, rotBlade = 0;
-GLint  direcao= 0; // 0 = esquerda / 1 = direita
+GLint  direcao= 0; 
 
 void display(void)
 {
@@ -32,7 +32,7 @@ void display(void)
 	// Haste
 	glPushMatrix();
 	{
-		rea
+		glTranslated(0,-150,0);
 		glScalef(2, 10, 2);
 		glutWireCube(1);
 	}
@@ -41,7 +41,7 @@ void display(void)
 	glColor3f(0.0f, 0.0f, 1.0f);
 
 	glPushMatrix();
-	glRotatef(rotX,0,1,0);
+	glRotatef(rotHead,0,1,0);
 	// Motor
 	glPushMatrix();
 	{
@@ -61,6 +61,7 @@ void display(void)
 	glColor3f(0.0f, 1.0f, 0.0f);
 
 	//rotacionar helice:
+	
 	glRotatef(rotBlade,0, 0, 1);
 	glPushMatrix();
 	// Hélice
@@ -124,16 +125,16 @@ void keyboard(unsigned char key, int x, int y)
 		break;
 	case 'z':
 		if(direcao == 0){
-			rotX  += 30;
-			direcao = 2;
+			rotHead  += 30;
+			direcao = 1;
 		}else if(direcao == 1){
-			rotX  = 0;
+			rotHead  = 0;
 			direcao = 2;
 		}else if(direcao == 2){
-			rotX   = -30;
+			rotHead   = -30;
 			direcao = 3;
 		}else{
-			rotX   = 0;
+			rotHead   = 0;
 			direcao = 0;
 		}
 		break;
@@ -143,8 +144,19 @@ void keyboard(unsigned char key, int x, int y)
 
 	case 32:
 		rotBlade +=30;
-		rotX = 0;
-		rotY += 30;
+		if(direcao == 0){
+			rotHead  += 30;
+			direcao = 1;
+		}else if(direcao == 1){
+			rotHead  = 0;
+			direcao = 2;
+		}else if(direcao == 2){
+			rotHead   = -30;
+			direcao = 3;
+		}else{
+			rotHead   = 0;
+			direcao = 0;
+		}
 
 		break;
 	default:
